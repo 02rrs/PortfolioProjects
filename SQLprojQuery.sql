@@ -5,31 +5,31 @@ order By 3,4
 Select * from PortfolioProject..CovidVaccinations
 order By 3,4
 
---Select Data that we are going to be using
+Select Data that we are going to be using
 
---Select location, date, total_cases, new_cases, total_deaths, population 
---from PortfolioProject..CovidDeaths
---where continent is not null
---order By 1,2
+Select location, date, total_cases, new_cases, total_deaths, population 
+from PortfolioProject..CovidDeaths
+where continent is not null
+order By 1,2
 
 ---- Looking at Total case vs Total Deaths
 -- Shows what percentage of population got covid
 
---Select location, date, total_cases, population, new_cases, total_deaths, cast(ROUND((total_cases/population)*100,3) AS float) as DeathPercentage
---from PortfolioProject..CovidDeaths
---where location like '%states%'
---and continent is not null
---order By 1,2
+Select location, date, total_cases, population, new_cases, total_deaths, cast(ROUND((total_cases/population)*100,3) AS float) as DeathPercentage
+from PortfolioProject..CovidDeaths
+where location like '%states%'
+and continent is not null
+order By 1,2
 
 ----Looking at country with Highest Infection Rate compared to population
 
---Select location, population, MAX(total_cases) as HighestInfectionCount, MAX((total_cases/population))*100 as DeathPercentage
---from PortfolioProject..CovidDeaths
---where continent is not null
---Group by location, population 
---order by DeathPercentage desc
+Select location, population, MAX(total_cases) as HighestInfectionCount, MAX((total_cases/population))*100 as DeathPercentage
+from PortfolioProject..CovidDeaths
+where continent is not null
+Group by location, population 
+order by DeathPercentage desc
 
-----Countries with Highest Death count per Population
+--Countries with Highest Death count per Population
 
   
 
@@ -64,7 +64,7 @@ where continent is not null
 order by 1,2
 
 
---Locking fot total population vs vaccinations
+--Looking for total population vs vaccinations
 
 Select dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations, 
 SUM(cast(vac.new_vaccinations as int)) Over (Partition by dea.location order by dea.location, dea.Date) as RollingPeopleVaccinated
